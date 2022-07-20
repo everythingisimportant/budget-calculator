@@ -1,9 +1,10 @@
 <script>
+    import {createEventDispatcher} from "svelte";
     export let id;
     export let name;
     export let amount;
     let displayAmount = false;
-
+    const dispatch = createEventDispatcher()
     function toggleAmount() {
         displayAmount = !displayAmount;
     }
@@ -24,7 +25,7 @@
         <button class="expense-btn edit-btn">
             <i class="fas fa-pen"></i>
         </button>
-        <button class="expense-btn delete-btn">
+        <button class="expense-btn delete-btn" on:click={()=>dispatch('delete',id)}>
             <i class="fas fa-trash"></i>
         </button>
     </div>
