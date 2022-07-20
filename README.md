@@ -14,11 +14,11 @@ Features
 
 Our App Component Tree
 
-R - Navbar
-O - Expense Form <- Title
-O - Totals <- Title
-T - Expense <- Title, Single Expense
+- Navbar
+- Expense Form <- Title
+- Totals <- Title
+- Expense <- Title, Single Expense
 
 Folder Structure Understanding
 
-All components gather at App.svelte component (root component target the body HTML) => main.js => rollup:input => rollup:output public/bundle.js
+All components gather at App.svelte component (root component target the body HTML) => main.js => rollup:input => rollup:output become the body of index.html
