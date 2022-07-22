@@ -10,7 +10,7 @@
         {#each expenses as exp}
         <Expense {...exp} on:delete/>
         {:else}
-        <h2>Currently you have to expense</h2>
+        <h2>Currently you have no expenses</h2>
         {/each}
     </ul>
 </section>

@@ -2,35 +2,40 @@
   import Navbar from "./Navbar.svelte"
   import ExpenseList from "./ExpenseList.svelte";
   import Total from "./Total.svelte";
-  import expenseData from "./expenses.js"
+  // import expenseData from "./expenses.js"
   import ExpenseForm from "./ExpenseForm.svelte";
-  import {setContext} from "svelte";
+  import {setContext, onMount} from "svelte";
 
-  let remove = setContext("remove", removeExpense);
-  let modify = setContext("modify", modifyExpense);
+  onMount(()=>{
+    expenses = localStorage.getItem("expense") ? JSON.parse(localStorage.getItem("expense")) : [];
+  });
+    
+  setContext("remove", removeExpense);
+  setContext("modify", modifyExpense);
   let setID = null;
   let setName = null;
   let setAmount = null;
   let isFormOpen = false;
-  let expenses = [...expenseData];
+  let expenses = [];
+  // let expenses = [...expenseData];
+
   $: total = expenses.reduce((a,b)=>a+ b.amount,0) || 0;
   $: isEditing = setID ? true : false;
 
   function removeExpense(id) {
     expenses = expenses.filter(item => item.id !== id);
+    setLocalStorage();
   }
 
   function removeAllExpense() {
-    expenses = [];
+    let deleteConfirm = prompt("Are you sure to delete all your expenses?");
+    deleteConfirm.match(/[^no]/gi) ? (expenses = [], setLocalStorage()): console.log("User denied!");
   }
 
   function addExpense({name, amount}) {
     let expense = {id: Math.random() * Date.now(), name, amount};
     expenses = [expense, ...expenses];
-  }
-
-  function editExpense({name, amount}) {
-    console.log(name, amount);
+    setLocalStorage();
   }
 
   function modifyExpense(id) {
@@ -39,6 +44,14 @@
     setName = expense.name;
     setAmount = expense.amount;
     showForm();
+  }
+
+  function editExpense({name, amount}) {
+    expenses = expenses.map(item => item.id === setID ? {...item, name, amount} : {...item});
+    setID = null;
+    setName = "";
+    setAmount = null;
+    setLocalStorage();
   }
 
   function showForm() {
@@ -51,6 +64,10 @@
     setName = "";
     setAmount = null;
   }
+
+  function setLocalStorage() {
+    localStorage.setItem("expense", JSON.stringify(expenses))
+  }
 </script>
 
 <Navbar {showForm}/>
@@ -60,7 +77,9 @@
   {/if}
     <Total title="total expenses" {total}/>
   <ExpenseList {expenses}/>
-  <button type="button" class="btn btn-primary btn-block" on:click={removeAllExpense}>
-    delete all
-  </button>
+  {#if expenses.length>0}
+    <button type="button" class="btn btn-primary btn-block" on:click={removeAllExpense}>
+      delete all
+    </button>
+  {/if}
 </main>
