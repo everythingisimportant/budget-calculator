@@ -38,7 +38,7 @@
     setID = expense.id;
     setName = expense.name;
     setAmount = expense.amount;
-    isFormOpen = true;
+    showForm();
   }
 
   function showForm() {
