@@ -16,10 +16,11 @@
         name = "";
         amount = null;
     }
+    let title = (isEditing ? "edit" : "add") + " expense";
 </script>
 
 <section class="form">
-    <Title title="add expense"/>
+    <Title title={title}/>
     <form action="" class="expense-form" on:submit|preventDefault={handleSubmit}>
         <div class="form-control">
             <label for="name">name</label>
