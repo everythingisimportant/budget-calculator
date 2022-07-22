@@ -1,13 +1,14 @@
 <script>
-    import {createEventDispatcher} from "svelte";
+    import {getContext} from "svelte";
     export let id;
     export let name;
     export let amount;
     let displayAmount = false;
-    const dispatch = createEventDispatcher()
     function toggleAmount() {
         displayAmount = !displayAmount;
     }
+    let remove = getContext("remove")
+    let modify = getContext("modify")
 </script>
 
 <article class="single-expense">
@@ -22,10 +23,10 @@
         {/if}
     </div>
     <div class="expense-button">
-        <button class="expense-btn edit-btn">
+        <button class="expense-btn edit-btn" on:click={()=>modify(id)}>
             <i class="fas fa-pen"></i>
         </button>
-        <button class="expense-btn delete-btn" on:click={()=>dispatch('delete',id)}>
+        <button class="expense-btn delete-btn" on:click={()=>remove(id)}>
             <i class="fas fa-trash"></i>
         </button>
     </div>
