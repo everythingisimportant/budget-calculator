@@ -11,35 +11,54 @@
   let setID = null;
   let setName = null;
   let setAmount = null;
+  let isFormOpen = false;
   let expenses = [...expenseData];
-  let total = expenses.reduce((a,b)=>a+ b.amount,0) || 0;
+  $: total = expenses.reduce((a,b)=>a+ b.amount,0) || 0;
   $: isEditing = setID ? true : false;
 
   function removeExpense(id) {
     expenses = expenses.filter(item => item.id !== id);
   }
+
   function removeAllExpense() {
     expenses = [];
   }
+
   function addExpense({name, amount}) {
     let expense = {id: Math.random() * Date.now(), name, amount};
     expenses = [expense, ...expenses];
   }
+
   function editExpense({name, amount}) {
     console.log(name, amount);
   }
+
   function modifyExpense(id) {
     let expense = expenses.find(item => item.id === id);
     setID = expense.id;
     setName = expense.name;
     setAmount = expense.amount;
+    isFormOpen = true;
+  }
+
+  function showForm() {
+    isFormOpen = true;
+  }
+
+  function hideForm() {
+    isFormOpen = false;
+    setID = null;
+    setName = "";
+    setAmount = null;
   }
 </script>
 
-<Navbar/>
+<Navbar {showForm}/>
 <main class="content">
-  <ExpenseForm {addExpense} {editExpense} name={setName} amount={setAmount} {isEditing}/>
-  <Total title="total expenses" {total}/>
+  {#if isFormOpen}
+    <ExpenseForm {addExpense} {editExpense} name={setName} amount={setAmount} {isEditing} {hideForm}/>
+  {/if}
+    <Total title="total expenses" {total}/>
   <ExpenseList {expenses}/>
   <button type="button" class="btn btn-primary btn-block" on:click={removeAllExpense}>
     delete all
