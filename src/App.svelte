@@ -4,12 +4,16 @@
   import Total from "./Total.svelte";
   // import expenseData from "./expenses.js"
   import ExpenseForm from "./ExpenseForm.svelte";
-  import {setContext, onMount} from "svelte";
+  import {setContext, onMount, afterUpdate} from "svelte";
 
-  onMount(()=>{
+  onMount(() => {
     expenses = localStorage.getItem("expense") ? JSON.parse(localStorage.getItem("expense")) : [];
   });
-    
+  
+  afterUpdate(() => {
+    setLocalStorage();
+  })
+
   setContext("remove", removeExpense);
   setContext("modify", modifyExpense);
   let setID = null;
@@ -24,18 +28,16 @@
 
   function removeExpense(id) {
     expenses = expenses.filter(item => item.id !== id);
-    setLocalStorage();
   }
 
   function removeAllExpense() {
     let deleteConfirm = prompt("Are you sure to delete all your expenses?");
-    deleteConfirm.match(/[^no]/gi) ? (expenses = [], setLocalStorage()): console.log("User denied!");
+    deleteConfirm.match(/[^no]/gi) ? expenses = [] : console.log("User denied!");
   }
 
   function addExpense({name, amount}) {
     let expense = {id: Math.random() * Date.now(), name, amount};
     expenses = [expense, ...expenses];
-    setLocalStorage();
   }
 
   function modifyExpense(id) {
@@ -51,7 +53,6 @@
     setID = null;
     setName = "";
     setAmount = null;
-    setLocalStorage();
   }
 
   function showForm() {
