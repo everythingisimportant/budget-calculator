@@ -4,6 +4,7 @@
   import Total from "./Total.svelte";
   // import expenseData from "./expenses.js"
   import ExpenseForm from "./ExpenseForm.svelte";
+  import Modal from "./Modal.svelte";
   import {setContext, onMount, afterUpdate} from "svelte";
 
   onMount(() => {
@@ -32,7 +33,7 @@
 
   function removeAllExpense() {
     let deleteConfirm = prompt("Are you sure to delete all your expenses?");
-    deleteConfirm.match(/[^no]/gi) ? expenses = [] : console.log("User denied!");
+    deleteConfirm.match(/^(?!.*no).*/gi) ? expenses = [] : console.log("User denied!");
   }
 
   function addExpense({name, amount}) {
@@ -49,7 +50,7 @@
   }
 
   function editExpense({name, amount}) {
-    expenses = expenses.map(item => item.id === setID ? {...item, name, amount} : {...item});
+    expenses = expenses.map(item => item.id === setID ? {...item, name, amount} : item);
     setID = null;
     setName = "";
     setAmount = null;
@@ -74,7 +75,9 @@
 <Navbar {showForm}/>
 <main class="content">
   {#if isFormOpen}
-    <ExpenseForm {addExpense} {editExpense} name={setName} amount={setAmount} {isEditing} {hideForm}/>
+    <Modal>
+      <ExpenseForm {addExpense} {editExpense} name={setName} amount={setAmount} {isEditing} {hideForm}/>
+    </Modal>
   {/if}
     <Total title="total expenses" {total}/>
   <ExpenseList {expenses}/>

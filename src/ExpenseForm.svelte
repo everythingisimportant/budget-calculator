@@ -15,6 +15,7 @@
         }
         name = "";
         amount = null;
+        hideForm();
     }
     let title = (isEditing ? "edit" : "add") + " expense";
 </script>
@@ -36,6 +37,6 @@
         <button type="submit" class="btn btn-block" class:disabled={isEmpty} disabled={isEmpty}>
             {#if isEditing}edit{:else}add{/if} expense 
         </button>
-        <button class="close-btn" on:click={hideForm}><i class="fas fa-times"></i>close</button>
+        <button type="button" class="close-btn" on:click={hideForm}><i class="fas fa-times"></i>close</button>
     </form>
 </section>
