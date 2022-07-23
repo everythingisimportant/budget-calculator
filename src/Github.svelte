@@ -1,12 +1,9 @@
 <script>
     import {onMount} from "svelte";
-    let users = [];
-    let loading = true;
-    onMount(async () => {
+    async function getUsers(){
         let userData = await fetch("https://api.github.com/users");
-        users = await userData.json();
-        loading = false;
-    })
+        return await userData.json();
+    }
 </script>
 
 <style>
@@ -15,9 +12,10 @@
     }
 </style>
 
-{#if loading}
+{#await getUsers()}
+    <!-- promise is pending -->
     <h2>Loading...</h2>
-{:else}
+{:then users}
     <h2>Github Users</h2>
     <section>
         {#each users as user}
@@ -30,5 +28,8 @@
         </article>
         {/each}
     </section>
-{/if}
-
+{:catch error}
+    <!-- promise was rejected -->
+    <p>Something went wrong: {error.message}</p>
+{/await}
+        
