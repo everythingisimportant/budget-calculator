@@ -15,6 +15,7 @@
         }
         name = "";
         amount = null;
+        hideForm();
     }
     let title = (isEditing ? "edit" : "add") + " expense";
 </script>
