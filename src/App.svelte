@@ -6,6 +6,7 @@
   import ExpenseForm from "./ExpenseForm.svelte";
   import Modal from "./Modal.svelte";
   import {setContext, onMount, afterUpdate} from "svelte";
+  import Github from "./Github.svelte";
 
   onMount(() => {
     expenses = localStorage.getItem("expense") ? JSON.parse(localStorage.getItem("expense")) : [];
@@ -74,7 +75,8 @@
 
 <Navbar {showForm}/>
 <main class="content">
-  {#if isFormOpen}
+  <Github/>
+  <!-- {#if isFormOpen}
     <Modal>
       <ExpenseForm {addExpense} {editExpense} name={setName} amount={setAmount} {isEditing} {hideForm}/>
     </Modal>
@@ -85,5 +87,5 @@
     <button type="button" class="btn btn-primary btn-block" on:click={removeAllExpense}>
       delete all
     </button>
-  {/if}
+  {/if} -->
 </main>
