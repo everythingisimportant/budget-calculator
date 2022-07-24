@@ -2,9 +2,8 @@
 
 ## Brief Description
 
-```markdown
-This simple application is built with [Svelte](https://svelte.dev) - Cybernetically enhanced web apps.
-```
+This simple application is built with [Svelte](https://svelte.dev/) - `Cybernetically enhanced web apps`.
+
 ## Why Svelte?
 
 Major advantages: `Svelte will be compiled to efficient vanilla JS after built`. By compiling Svelte to vanilla JavaScript improves the code readability, enables re-use and it produces a much faster web app.
