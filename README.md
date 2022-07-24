@@ -1,24 +1,26 @@
-Brief Instruction
+## About my application - Budget Calculator
 
-- A Budget Calculator application is built with Svelte - Cybernetically enhanced web apps (## https://svelte.dev)
+## Brief Description
 
-Why Svelte?
+```markdown
+This simple application is built with [Svelte](https://svelte.dev) - Cybernetically enhanced web apps.
+```
+## Why Svelte?
 
-- Major advantages: Svelte will be compiled to efficient vanilla JS after built. By compiling Svelte to vanilla JavaScript improves the code readability, enables re-use and it produces a much faster web app
+Major advantages: `Svelte will be compiled to efficient vanilla JS after built`. By compiling Svelte to vanilla JavaScript improves the code readability, enables re-use and it produces a much faster web app.
 
-Features
+## Folder Structure Understanding
 
-- Navbar with application's name and button to add items.
-- Form to get user input and add to the list.
-- Display list items with button add, edit and remove item.
+All components will meet at `App.svelte` component (root component target the body HTML) => main.js => rollup:input => rollup:output become the body of index.html.
 
-Our App Component Tree
+## Features
+```markdown
+1. Button in Navbar to add items.
+2. Form is displayed to add user input to the list or modify items.
+3. Display list items with button edit and remove item.
+4. Button delete all items
+5. Data is stored and loaded from user's local storage.
+```
 
-- Navbar
-- Expense Form <- Title
-- Totals <- Title
-- Expense <- Title, Single Expense
-
-Folder Structure Understanding
-
-All components gather at App.svelte component (root component target the body HTML) => main.js => rollup:input => rollup:output become the body of index.html
+## Our App Component Tree
+![Diagram](https://res.cloudinary.com/nmnhat/image/upload/v1658651522/BudgetCalculator_lzadnw.png)
