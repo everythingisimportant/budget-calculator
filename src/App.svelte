@@ -66,7 +66,6 @@
 
 <Navbar {showForm}/>
 <main class="content">
-  <!-- <Github/> -->
   {#if isFormOpen}
     <Modal>
       <ExpenseForm {addExpense} {editExpense} name={setName} amount={setAmount} {isEditing} {hideForm}/>
