@@ -3,9 +3,10 @@
     export let addExpense;
     export let editExpense;
     export let hideForm;
-    export let name = '';
+    export let name = "";
     export let amount = null;
     export let isEditing = false;
+    let title = (isEditing ? "edit" : "add") + " expense";
     $: isEmpty = !name || !amount;
     function handleSubmit() {
         if(isEditing) {
@@ -17,7 +18,6 @@
         amount = null;
         hideForm();
     }
-    let title = (isEditing ? "edit" : "add") + " expense";
 </script>
 
 <section class="form">

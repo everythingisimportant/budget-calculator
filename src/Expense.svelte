@@ -5,11 +5,11 @@
     export let name;
     export let amount;
     let displayAmount = false;
+    let remove = getContext("remove")
+    let modify = getContext("modify")
     function toggleAmount() {
         displayAmount = !displayAmount;
     }
-    let remove = getContext("remove")
-    let modify = getContext("modify")
 </script>
 
 <article class="single-expense">
