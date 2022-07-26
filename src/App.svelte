@@ -5,6 +5,7 @@
   import ExpenseForm from "./ExpenseForm.svelte";
   import Modal from "./Modal.svelte";
   import {setContext, onMount, afterUpdate} from "svelte";
+  import {setupI18n} from "./i18n.js";
 
   // reactive
   $: total = expenses.reduce((a,b)=>a+ b.amount,0) || 0;
@@ -62,6 +63,7 @@
   }
 
   const setLocalStorage = (_) => localStorage.setItem("expense", JSON.stringify(expenses))
+  setupI18n({withLocale: 'en'});
 </script>
 
 <Navbar {showForm}/>
